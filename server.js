@@ -1,6 +1,6 @@
 var express = require("express"),
 	path = require("path"),
-	bodyParser = require('body-parser'),
+	bodyParser = require("body-parser"),
 	mongodb = require("mongodb"),
 	ObjectID = mongodb.ObjectID;
 
@@ -23,7 +23,7 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function(err, database) {
 
 	// Save database object from callback for reuse
 	db = database;
-	console.log("Databse connection ready");
+	console.log("Database connection ready");
 
 	// Initialize app
 	var server = app.listen(process.env.PORT || 8080, function() {
