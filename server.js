@@ -54,7 +54,7 @@ app.post("/contacts", function(req, res) {
 	newContact.createDate = new Date();
 
 	if (!(req.body.firstName || req.body.lastName)) {
-		handlerError(res, "Invalid user input", "Must provide a first or last name.", 400);
+		handleError(res, "Invalid user input", "Must provide a first or last name.", 400);
 	}
 
 	db.collection(CONTACTS_COLLECTION).insertOne(newContact, function(err, doc) {
