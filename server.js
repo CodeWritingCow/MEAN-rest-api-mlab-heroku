@@ -35,7 +35,7 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function(err, database) {
 // CONTACTS API ROUTES BELOW
 
 // Generic error handler used by all endpoints
-function handlerError(res, reason, message, code) {
+function handleError(res, reason, message, code) {
 	console.log("ERROR: " + reason);
 	res.status(code || 500).json({"error": message});
 }
@@ -59,7 +59,7 @@ app.post("/contacts", function(req, res) {
 
 	db.collection(CONTACTS_COLLECTION).insertOne(newContact, function(err, doc) {
 		if (err) {
-			handlerError(res, err.message, "Failed to create new contact.");
+			handleError(res, err.message, "Failed to create new contact.");
 		} else {
 			res.status(201).json(doc.ops[0]);
 		}
