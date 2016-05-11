@@ -9,8 +9,18 @@ angular.module('contactsApp', ['ngRoute'])
 						return Contacts.getContacts();
 					}
 				}
-		})
+			})
+
+			.when("/new/contact", {
+				controller: "NewContactController",
+				templateUrl: "contact-form.html"
+			})
+
+			.otherwise({
+				redirectTo: "/"
+			})
 	})
+
 	.service('Contacts', function($http){
 		this.getContacts = function() {
 			return $http.get("/contacts")
@@ -21,6 +31,21 @@ angular.module('contactsApp', ['ngRoute'])
 			});
 		}
 	})
+
 	.controller('ListController', function(contacts, $scope){
 		$scope.contacts = contacts.data;
+	})
+
+	.controller('NewContactController', function($scope, $location, Contacts) {
+		$scope.back = function() {
+			$location.path("#/");
+		}
+		$scope.saveContact = function(contact) {
+			Contacts.createContact(contact).then(function(doc) {
+				var contactUrl = "/contact/" + doc.data._id;
+				$location.path(contactUrl);
+			}, function(response) {
+				alert(response);
+			});
+		}
 	});
