@@ -30,6 +30,14 @@ angular.module('contactsApp', ['ngRoute'])
 				alert("Error retrieving contacts.");
 			});
 		}
+		this.createContact = function(contact) {
+			return $http.post("/contacts", contact)
+			.then(function(response) {
+				return response;
+			}, function(response) {
+				alert("Error creating contact.");
+			});
+		}
 	})
 
 	.controller('ListController', function(contacts, $scope){
